@@ -1,26 +1,76 @@
-// Update the rate display dynamically
-function updateRate() {
-    let rate = document.getElementById('rate').value;
-    document.getElementById('rate-display').textContent = rate + "%";
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
-// Update the tenure display dynamically
-function updateTenure() {
-    let tenure = document.getElementById('tenure').value;
-    document.getElementById('tenure-display').textContent = tenure + " Years";
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
 }
 
-// Calculate EMI
-function calculateEMI() {
-    let principal = document.getElementById('principal').value;
-    let rate = document.getElementById('rate').value;
-    let tenure = document.getElementById('tenure').value;
+h1 {
+    color: #333;
+}
 
-    let monthlyRate = rate / 12 / 100; // Convert annual rate to monthly rate
-    let months = tenure * 12; // Convert years to months
+h2 {
+    margin-top: 30px;
+    color: #333;
+}
 
-    // EMI calculation formula
-    let emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
-    
-    document.getElementById('emi-result').textContent = emi.toFixed(2);
+.input-container {
+    margin-bottom: 20px;
+}
+
+input[type="number"], input[type="range"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Tab Links */
+.tabs {
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #f4f4f4;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.tab-link.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Loan Tab Content */
+.loan-tab {
+    display: none;
+}
+
+.loan-tab.active {
+    display: block;
 }
