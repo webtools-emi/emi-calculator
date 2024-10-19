@@ -3,29 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMI Calculator</title>
+    <title>Loan EMI Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>EMI Comparison Tool</h1>
-        <div class="input-container">
-            <label for="principal">Principal Amount (₹): </label>
-            <input type="number" id="principal" value="500000">
-        </div>
-        <div class="input-container">
-            <label for="rate">Interest Rate (% per annum): </label>
-            <input type="range" id="rate" min="1" max="20" value="10" oninput="updateRate()">
-            <span id="rate-display">10%</span>
-        </div>
-        <div class="input-container">
-            <label for="tenure">Loan Tenure (Years): </label>
-            <input type="range" id="tenure" min="1" max="30" value="5" oninput="updateTenure()">
-            <span id="tenure-display">5 Years</span>
-        </div>
-        <button onclick="calculateEMI()">Calculate EMI</button>
+        <h1>Loan EMI Calculator</h1>
 
-        <h2>EMI Result: ₹ <span id="emi-result">0</span></h2>
+        <!-- Tabs for different loan types -->
+        <div class="tabs">
+            <button class="tab-link" onclick="openLoanType(event, 'home-loan')">Home Loan</button>
+            <button class="tab-link" onclick="openLoanType(event, 'car-loan')">Car Loan</button>
+            <button class="tab-link" onclick="openLoanType(event, 'personal-loan')">Personal Loan</button>
+        </div>
+
+        <!-- Home Loan Section -->
+        <div id="home-loan" class="loan-tab">
+            <h2>Home Loan Calculator</h2>
+            <div class="input-container">
+                <label for="home-principal">Principal Amount (₹): </label>
+                <input type="number" id="home-principal" value="1000000">
+            </div>
+            <div class="input-container">
+                <label for="home-rate">Interest Rate (% per annum): </label>
+                <input type="range" id="home-rate" min="1" max="15" value="7" oninput="updateRate('home-rate', 'home-rate-display')">
+                <span id="home-rate-display">7%</span>
+            </div>
+            <div class="input-container">
+                <label for="home-tenure">Loan Tenure (Years): </label>
+                <input type="range" id="home-tenure" min="1" max="30" value="20" oninput="updateTenure('home-tenure', 'home-tenure-display')">
+                <span id="home-tenure-display">20 Years</span>
+            </div>
+            <button onclick="calculateEMI('home')">Calculate Home Loan EMI</button>
+            <h2>EMI: ₹ <span id="home-emi-result">0</span></h2>
+        </div>
+
+        <!-- Car Loan Section -->
+        <div id="car-loan" class="loan-tab" style="display:none;">
+            <h2>Car Loan Calculator</h2>
+            <div class="input-container">
+                <label for="car-principal">Principal Amount (₹): </label>
+                <input type="number" id="car-principal" value="500000">
+            </div>
+            <div class="input-container">
+                <label for="car-rate">Interest Rate (% per annum): </label>
+                <input type="range" id="car-rate" min="1" max="15" value="9" oninput="updateRate('car-rate', 'car-rate-display')">
+                <span id="car-rate-display">9%</span>
+            </div>
+            <div class="input-container">
+                <label for="car-tenure">Loan Tenure (Years): </label>
+                <input type="range" id="car-tenure" min="1" max="7" value="5" oninput="updateTenure('car-tenure', 'car-tenure-display')">
+                <span id="car-tenure-display">5 Years</span>
+            </div>
+            <button onclick="calculateEMI('car')">Calculate Car Loan EMI</button>
+            <h2>EMI: ₹ <span id="car-emi-result">0</span></h2>
+        </div>
+
+        <!-- Personal Loan Section -->
+        <div id="personal-loan" class="loan-tab" style="display:none;">
+            <h2>Personal Loan Calculator</h2>
+            <div class="input-container">
+                <label for="personal-principal">Principal Amount (₹): </label>
+                <input type="number" id="personal-principal" value="300000">
+            </div>
+            <div class="input-container">
+                <label for="personal-rate">Interest Rate (% per annum): </label>
+                <input type="range" id="personal-rate" min="1" max="20" value="12" oninput="updateRate('personal-rate', 'personal-rate-display')">
+                <span id="personal-rate-display">12%</span>
+            </div>
+            <div class="input-container">
+                <label for="personal-tenure">Loan Tenure (Years): </label>
+                <input type="range" id="personal-tenure" min="1" max="5" value="3" oninput="updateTenure('personal-tenure', 'personal-tenure-display')">
+                <span id="personal-tenure-display">3 Years</span>
+            </div>
+            <button onclick="calculateEMI('personal')">Calculate Personal Loan EMI</button>
+            <h2>EMI: ₹ <span id="personal-emi-result">0</span></h2>
+        </div>
     </div>
 
     <script src="script.js"></script>
