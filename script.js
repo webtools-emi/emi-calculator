@@ -1,76 +1,61 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+// Update the rate and tenure display dynamically
+function updateRate(rateId, displayId) {
+    let rate = document.getElementById(rateId).value;
+    document.getElementById(displayId).textContent = rate + "%";
 }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    text-align: center;
+function updateTenure(tenureId, displayId) {
+    let tenure = document.getElementById(tenureId).value;
+    document.getElementById(displayId).textContent = tenure + " Years";
 }
 
-h1 {
-    color: #333;
+// Function to switch between loan types
+function openLoanType(evt, loanType) {
+    var i, loanTab, tabLink;
+
+    // Hide all loan tabs
+    loanTab = document.getElementsByClassName("loan-tab");
+    for (i = 0; i < loanTab.length; i++) {
+        loanTab[i].style.display = "none";
+    }
+
+    // Remove active class from all tab links
+    tabLink = document.getElementsByClassName("tab-link");
+    for (i = 0; i < tabLink.length; i++) {
+        tabLink[i].className = tabLink[i].className.replace(" active", "");
+    }
+
+    // Show the current loan tab and add active class to clicked tab link
+    document.getElementById(loanType).style.display = "block";
+    evt.currentTarget.className += " active";
 }
 
-h2 {
-    margin-top: 30px;
-    color: #333;
-}
+// EMI Calculation Function
+function calculateEMI(type) {
+    let principal, rate, tenure, emiResultId;
 
-.input-container {
-    margin-bottom: 20px;
-}
+    if (type === 'home') {
+        principal = document.getElementById('home-principal').value;
+        rate = document.getElementById('home-rate').value;
+        tenure = document.getElementById('home-tenure').value;
+        emiResultId = 'home-emi-result';
+    } else if (type === 'car') {
+        principal = document.getElementById('car-principal').value;
+        rate = document.getElementById('car-rate').value;
+        tenure = document.getElementById('car-tenure').value;
+        emiResultId = 'car-emi-result';
+    } else if (type === 'personal') {
+        principal = document.getElementById('personal-principal').value;
+        rate = document.getElementById('personal-rate').value;
+        tenure = document.getElementById('personal-tenure').value;
+        emiResultId = 'personal-emi-result';
+    }
 
-input[type="number"], input[type="range"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-}
+    let monthlyRate = rate / 12 / 100;
+    let months = tenure * 12;
 
-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-/* Tab Links */
-.tabs {
-    margin-bottom: 20px;
-}
-
-.tab-link {
-    padding: 10px 20px;
-    margin-right: 10px;
-    background-color: #f4f4f4;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.tab-link.active {
-    background-color: #4CAF50;
-    color: white;
-}
-
-/* Loan Tab Content */
-.loan-tab {
-    display: none;
-}
-
-.loan-tab.active {
-    display: block;
+    // EMI calculation formula
+    let emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+    
+    document.getElementById(emiResultId).textContent = emi.toFixed(2);
 }
